@@ -69,16 +69,6 @@ private:
 
 int main(){
 
-
-
-
-
-
-
-
-
-
-
     std::cout << "PLA Seed Finder" << std::endl;
     std::cout << std::endl;
     std::cout << "Pokemon Automation Discord Server (https://discord.gg/cQ4gWxN)" << std::endl;
@@ -146,5 +136,6 @@ int main(){
     cout << "seconds = " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000000. << endl;
 
 
+    system("pause");
 }
 
