@@ -32,8 +32,8 @@ int32_t pa_PLA_find_seeds(
     stats.ivs[5] = ivs[5];
 
 
-    std::cout << "PID: " << tostr_hex_padded(stats.pid, 16) << std::endl;
-    std::cout << "EC:  " << tostr_hex_padded(stats.ec, 16) << std::endl;
+    std::cout << "PID: " << tostr_hex_padded(stats.pid, 8) << std::endl;
+    std::cout << "EC:  " << tostr_hex_padded(stats.ec, 8) << std::endl;
     std::cout << "IVs: " << stats.ivs[0] << " "
                          << stats.ivs[1] << " "
                          << stats.ivs[2] << " "
