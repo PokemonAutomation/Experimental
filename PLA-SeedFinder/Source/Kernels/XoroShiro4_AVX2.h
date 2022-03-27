@@ -4,7 +4,6 @@
  *
  */
 
-#pragma once
 #ifndef PokemonAutomation_XoroShiro4_AVX2_H
 #define PokemonAutomation_XoroShiro4_AVX2_H
 

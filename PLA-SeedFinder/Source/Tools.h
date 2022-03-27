@@ -4,7 +4,6 @@
  *
  */
 
-#pragma once
 #ifndef PokemonAutomation_SeedFinder_PokemonLA_Tools_H
 #define PokemonAutomation_SeedFinder_PokemonLA_Tools_H
 

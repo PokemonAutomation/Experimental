@@ -4,7 +4,6 @@
  *
  */
 
-#pragma once
 #ifndef PokemonAutomation_DynamicParallelizer_H
 #define PokemonAutomation_DynamicParallelizer_H
 

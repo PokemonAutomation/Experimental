@@ -4,6 +4,9 @@
  *
  */
 
+#ifndef PokemonAutomation_CPUID_H
+#define PokemonAutomation_CPUID_H
+
 namespace PokemonAutomation{
     
 
@@ -93,3 +96,4 @@ extern const CPU_x86_Features CPU_CAPABILITY;
 
 
 }
+#endif

@@ -4,7 +4,6 @@
  *
  */
 
-#pragma once
 #ifndef PokemonAutomation_XoroShiro2_SSE2_H
 #define PokemonAutomation_XoroShiro2_SSE2_H
 

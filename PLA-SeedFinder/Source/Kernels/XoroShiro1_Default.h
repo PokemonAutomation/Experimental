@@ -4,7 +4,6 @@
  *
  */
 
-#pragma once
 #ifndef PokemonAutomation_XoroShiro1_Default_H
 #define PokemonAutomation_XoroShiro1_Default_H
 

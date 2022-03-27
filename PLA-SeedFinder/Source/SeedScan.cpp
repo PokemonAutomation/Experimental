@@ -6,6 +6,8 @@
 
 #include "CpuId.h"
 #include "SeedScan.h"
+#include "ReportCandidates.h"
+#include "DynamicParallelizer.h"
 
 #include <iostream>
 using std::cout;
@@ -72,6 +74,22 @@ bool seed_scan(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t
         return seed_scan_Default(rolls, desired_pid, start_seed, iterations);
     }
     return false;
+}
+
+
+
+
+std::vector<Result> run_search(const PokemonStats& stats, size_t rolls, size_t threads){
+    EcPidMatchReporter reporter(stats);
+    {
+        DynamicParallelizer session(
+            [&](uint64_t start, uint64_t length){
+                report_ec_pid_matches(reporter, rolls, stats.pid, (uint32_t)(stats.ec - 0x82A2B175229D6A5B) + (start << 32), length);
+            },
+            65536, 0x100000000, threads
+        );
+    }
+    return std::vector<Result>(reporter.seeds().begin(), reporter.seeds().end());
 }
 
 
