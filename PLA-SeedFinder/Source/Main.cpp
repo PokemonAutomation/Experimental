@@ -25,7 +25,7 @@ int main(){
     std::cout << "PLA Seed Finder" << std::endl;
     std::cout << std::endl;
     std::cout << "Pokemon Automation Discord Server (https://discord.gg/cQ4gWxN)" << std::endl;
-    std::cout << "GitHub: TBD" << std::endl;
+    std::cout << "GitHub: https://github.com/PokemonAutomation/Experimental/blob/main/PLA-SeedFinder" << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -87,15 +87,15 @@ int main(){
     const uint32_t BUFFER_SIZE = 16;
     uint64_t seeds[BUFFER_SIZE];
     uint8_t rolls[BUFFER_SIZE];
-    int count = pa_PLA_find_seeds(pid, ec, ivs, max_rolls, seeds, rolls, BUFFER_SIZE);
+    pa_PLA_find_seeds(pid, ec, ivs, max_rolls, seeds, rolls, BUFFER_SIZE);
 
+
+#if 0
     if (count < 0){
         count = BUFFER_SIZE;
     }
 
     cout << "Total Found: " << count << endl;
-
-#if 0
     for (size_t c = 0; c < count; c++){
         cout << tostr_hex_padded(seeds[c], 16) << " : " << (int)rolls[c] << endl;
     }
