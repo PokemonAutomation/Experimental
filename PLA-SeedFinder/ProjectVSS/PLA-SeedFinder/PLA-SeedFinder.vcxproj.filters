@@ -18,76 +18,73 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Source\Main.cpp">
+    <ClCompile Include="..\..\Source\PLA-SeedFinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\SeedScan.cpp">
+    <ClCompile Include="..\..\Source\ReportCandidates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Kernels\SeedScan_Default.cpp">
+    <ClCompile Include="..\..\Source\SeedScan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Tools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CpuId.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DynamicParallelizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_Default.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Kernels\SeedScan_x64_AVX2.cpp">
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_AVX2.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Kernels\SeedScan_x64_AVX512.cpp">
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_AVX512.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\Kernels\SeedScan_x64_SSE41.cpp">
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_SSE41.cpp">
       <Filter>Source Files\Kernels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\CpuId.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\ReportCandidates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\DynamicParallelizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Tools.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\PLA-SeedFinder.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\Compiler.h">
+    <ClInclude Include="..\..\Source\PLA-SeedFinder.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\SeedScan.h">
+    <ClInclude Include="..\..\Source\ReportCandidates.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Kernels\XoroShiro1_Default.h">
+    <ClInclude Include="..\..\Source\SeedScan.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Tools.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Compiler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CpuId.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DynamicParallelizer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro2_SSE2.h">
       <Filter>Source Files\Kernels</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Kernels\XoroShiro2_SSE2.h">
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro4_AVX2.h">
       <Filter>Source Files\Kernels</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Kernels\XoroShiro4_AVX2.h">
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro8_AVX512.h">
       <Filter>Source Files\Kernels</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Kernels\XoroShiro8_AVX512.h">
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro1_Default.h">
       <Filter>Source Files\Kernels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\CpuId.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\ReportCandidates.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\DynamicParallelizer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\Tools.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\PLA-SeedFinder.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\EcPidMatchReporter.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@ extern "C" {
 #endif
 
 
+
 //  Find the seed for the specified Pokemon.
 //
 //  Returns the # of matching seeds.

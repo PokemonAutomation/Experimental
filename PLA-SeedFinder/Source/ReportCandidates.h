@@ -65,7 +65,7 @@ private:
     bool test_ivs(uint64_t seed, size_t rolls, uint8_t max_ivs){
         PokemonStats stats = generate(seed, rolls, max_ivs);
         if (matches(m_stats, stats)){
-            m_seeds.emplace_back(Result{seed, max_ivs});
+            m_seeds.emplace_back(Result{seed, (uint8_t)rolls});
             print(seed, rolls, max_ivs);
             return true;
         }
