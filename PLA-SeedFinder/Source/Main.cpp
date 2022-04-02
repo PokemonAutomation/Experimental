@@ -62,9 +62,10 @@ int main(){
     }
 
     uint8_t max_rolls = 32;
-    size_t threads = std::thread::hardware_concurrency();
 
 #if 0
+    size_t threads = std::thread::hardware_concurrency();
+
     std::cout << std::endl;
     print_isa();
     std::cout << "Threads: " << threads << std::endl;
@@ -101,7 +102,9 @@ int main(){
     }
 #endif
 
+#ifdef _WIN32
     system("pause");
+#endif
 }
 
 

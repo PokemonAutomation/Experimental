@@ -18,7 +18,9 @@
 #endif
 #endif
 
-#include "CpuId.h"
+#include "CpuFeatures.h"
+
+#include <cpuid.h>
 
 namespace PokemonAutomation{
 
@@ -27,10 +29,10 @@ namespace PokemonAutomation{
 void x86_cpuid(uint32_t eabcdx[4], uint32_t eax, uint32_t ecx){
     __cpuid_count(eax, ecx, eabcdx[0], eabcdx[1], eabcdx[2], eabcdx[3]);
 }
-u64_t xgetbv(unsigned int index){
-    u32_t eax, edx;
+uint64_t xgetbv(unsigned int index){
+    uint32_t eax, edx;
     __asm__ volatile ("xgetbv" : "=a"(eax), "=d"(edx) : "c"(index));
-    return ((u64_t)edx << 32) | eax;
+    return ((uint64_t)edx << 32) | eax;
 }
 #define _XCR_XFEATURE_ENABLED_MASK  0
 #else

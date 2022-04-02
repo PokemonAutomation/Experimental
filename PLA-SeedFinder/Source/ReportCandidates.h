@@ -55,9 +55,8 @@ public:
 
 //        PokemonStats stats3 = generate(seed, rolls, 3);
 
-        bool match = false;
         for (uint8_t c = 0; c < 6; c++){
-            match |= test_ivs(seed, rolls, c);
+            test_ivs(seed, rolls, c);
         }
     }
 

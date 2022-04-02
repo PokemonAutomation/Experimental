@@ -44,7 +44,7 @@ bool seed_scan_unroll8_AVX2(size_t rolls, uint32_t desired_pid, uint64_t start_s
     }while (--iterations);
 
     diff0 = _mm256_or_si256(diff0, diff1);
-    return !_mm256_test_all_zeros(diff0, _mm256_set1_epi64x(0x00000000ffffffff));
+    return !_mm256_testz_si256(diff0, _mm256_set1_epi64x(0x00000000ffffffff));
 }
 
 

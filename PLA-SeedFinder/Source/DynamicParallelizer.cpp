@@ -17,9 +17,9 @@ DynamicParallelizer::DynamicParallelizer(
     : m_function(std::move(function))
     , m_thread_count(threads == 0 ? std::thread::hardware_concurrency() : threads)
     , m_total(total)
+    , m_threads(m_thread_count)
     , m_next(0)
     , m_completed(0)
-    , m_threads(m_thread_count)
 {
     uint64_t blocks = m_thread_count * 4;
     m_block_size = (total + blocks - 1) / blocks;

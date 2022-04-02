@@ -5,6 +5,7 @@
  */
 
 #include <stdint.h>
+#include <cstddef>
 #include "XoroShiro1_Default.h"
 
 namespace PokemonAutomation{
