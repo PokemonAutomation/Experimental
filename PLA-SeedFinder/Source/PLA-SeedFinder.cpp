@@ -4,6 +4,7 @@
  *
  */
 
+#include <algorithm>
 #include <mutex>
 #include <iostream>
 #include "Tools.h"
@@ -18,6 +19,17 @@ using namespace PokemonAutomation;
 
 
 int32_t pa_PLA_find_seeds(
+    uint32_t pid, uint32_t ec, int8_t ivs[6], uint8_t max_rolls,
+    uint64_t* seeds, uint8_t* rolls, uint32_t length
+){
+    return pa_PLA_find_seeds_threads(
+        std::max<uint32_t>(std::thread::hardware_concurrency(), 1),
+        pid, ec, ivs, max_rolls, seeds, rolls, length
+    );
+}
+
+int32_t pa_PLA_find_seeds_threads(
+    uint32_t threads,
     uint32_t pid, uint32_t ec, int8_t ivs[6], uint8_t max_rolls,
     uint64_t* seeds, uint8_t* rolls, uint32_t length
 ){
@@ -42,8 +54,6 @@ int32_t pa_PLA_find_seeds(
                          << stats.ivs[5] << std::endl;
 
     EcPidMatchReporter reporter(stats);
-
-    size_t threads = std::thread::hardware_concurrency();
 
     std::cout << std::endl;
     print_isa();

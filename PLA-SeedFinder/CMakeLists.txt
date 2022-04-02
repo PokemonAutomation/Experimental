@@ -75,17 +75,12 @@ if (MSVC)
     set(ARCH_FLAGS_09_Nehalem       /W4)    # Dummy parameter
     set(ARCH_FLAGS_13_Haswell       /arch:AVX2)
     set(ARCH_FLAGS_17_Skylake       /arch:AVX512)
-    set(ARCH_FLAGS_19_IceLake       /arch:AVX512)
 
     #   Run-time ISA dispatching
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_08_Nehalem)
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_13_Haswell)
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
-    target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_19_IceLake)
-
-#    target_compile_options(PLA-SeedFinder PRIVATE /arch:AVX2   /DPA_Arch_x64_AVX2)
-#    target_compile_options(PLA-SeedFinder PRIVATE /arch:AVX512 /DPA_Arch_x64_AVX512)
-#    target_compile_options(PLA-SeedFinder PRIVATE /arch:AVX512 /DPA_Arch_x64_AVX512GF)
+    
 else()
     target_compile_options(PLA-SeedFinder PRIVATE -msse4.2)
 
@@ -94,13 +89,11 @@ else()
     set(ARCH_FLAGS_09_Nehalem       -march=nehalem)
     set(ARCH_FLAGS_13_Haswell       -march=haswell)
     set(ARCH_FLAGS_17_Skylake       -march=skylake-avx512)
-    # set(ARCH_FLAGS_19_IceLake       -march=icelake-client)
 
     #   Run-time ISA dispatching
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_08_Nehalem)
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_13_Haswell)
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
-    target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_19_IceLake)
 endif()
 
 

@@ -30,7 +30,7 @@
     <ClCompile Include="..\..\Source\Tools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CpuId.cpp">
+    <ClCompile Include="..\..\Source\CpuFeatures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DynamicParallelizer.cpp">
@@ -68,9 +68,6 @@
     <ClInclude Include="..\..\Source\Compiler.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CpuId.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\DynamicParallelizer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -85,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Kernels\XoroShiro1_Default.h">
       <Filter>Source Files\Kernels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CpuFeatures.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
