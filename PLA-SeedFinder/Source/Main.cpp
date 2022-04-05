@@ -19,8 +19,44 @@ using namespace PokemonAutomation;
 
 
 
+#if 0
+void seed_scan_Default_test(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
+    for (uint64_t s = 0; s < iterations; s++){
+        XoroShiroX1 rng0(start_seed);
+        if (rng0.get_int32() == 0xffffffff){
+            rng0.next();
+        }
+        rng0.next();
+
+        uint32_t pid0;
+        for (size_t c = 0; c < rolls; c++){
+            rng0.next();
+            pid0 = rng0.get_int32();
+            if (pid0 == desired_pid){
+//                PokemonStats stats = generate(start_seed, c + 1, 0);
+//                reporter.report(start_seed, c + 1);
+                print(start_seed, c + 1, 0);
+                print(start_seed, c + 1, 3);
+//                cout << start_seed << endl;
+            }
+        }
+
+        start_seed += 0x100000000;
+    }
+}
+void test(){
+    uint64_t seed = (uint32_t)(0xffffffff - 0x82A2B175229D6A5B);
+    seed_scan_Default_test(33, 0xd9ecd53b, seed, 0x100000000);
+}
+#endif
+
+
+
 
 int main(){
+
+//    test();
+
 
     std::cout << "PLA Seed Finder" << std::endl;
     std::cout << std::endl;

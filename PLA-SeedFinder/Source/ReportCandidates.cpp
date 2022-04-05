@@ -26,7 +26,7 @@ void report_ec_pid_matches(
             for (size_t c = 0; c < rolls; c++){
                 rng0.next();
                 pid0 = rng0.get_int32();
-                if (pid0 == desired_pid){
+                if (((pid0 ^ desired_pid) & 0xefffffff) == 0){
                     reporter.report(start_seed, c + 1);
                 }
             }

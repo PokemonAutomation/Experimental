@@ -55,7 +55,6 @@ bool seed_scan(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t
         iterations -= block;
     }
 #endif
-
 #ifdef PA_AutoDispatch_13_Haswell
     if (CPU_CAPABILITY.OS_AVX && CPU_CAPABILITY.HW_AVX2){
         uint64_t block = iterations / 8 * 8;
@@ -66,7 +65,6 @@ bool seed_scan(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t
         iterations -= block;
     }
 #endif
-    
 #ifdef PA_AutoDispatch_08_Nehalem
     if (CPU_CAPABILITY.HW_SSE41){
         uint64_t block = iterations / 4 * 4;

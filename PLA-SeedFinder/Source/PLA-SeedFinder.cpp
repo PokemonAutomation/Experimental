@@ -43,6 +43,9 @@ int32_t pa_PLA_find_seeds_threads(
     stats.ivs[4] = ivs[4];
     stats.ivs[5] = ivs[5];
 
+    std::cout << std::endl;
+    std::cout << "PLA Seed Finder v1.1" << std::endl;
+    std::cout << std::endl;
 
     std::cout << "PID: " << tostr_hex_padded(stats.pid, 8) << std::endl;
     std::cout << "EC:  " << tostr_hex_padded(stats.ec, 8) << std::endl;

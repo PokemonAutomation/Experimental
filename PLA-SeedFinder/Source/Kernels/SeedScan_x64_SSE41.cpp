@@ -12,7 +12,7 @@ namespace PokemonAutomation{
 
 
 bool seed_scan_unroll4_SSE41(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
-    __m128i vpid = _mm_set1_epi64x(desired_pid);
+    __m128i vpid = _mm_set1_epi64x(desired_pid & 0xefffffff);
 
     __m128i seed0 = _mm_add_epi64(_mm_set1_epi64x(start_seed), _mm_setr_epi32(0, 0, 0, 1));
     __m128i seed1 = _mm_add_epi64(_mm_set1_epi64x(start_seed), _mm_setr_epi32(0, 2, 0, 3));
@@ -34,6 +34,8 @@ bool seed_scan_unroll4_SSE41(size_t rolls, uint32_t desired_pid, uint64_t start_
             rng1.next();
             pid0 = rng0.get_int64();
             pid1 = rng1.get_int64();
+            pid0 = _mm_and_si128(pid0, _mm_set1_epi64x(0xefffffff));
+            pid1 = _mm_and_si128(pid1, _mm_set1_epi64x(0xefffffff));
             pid0 = _mm_cmpeq_epi32(pid0, vpid);
             pid1 = _mm_cmpeq_epi32(pid1, vpid);
             diff0 = _mm_or_si128(diff0, pid0);

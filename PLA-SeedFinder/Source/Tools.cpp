@@ -88,8 +88,11 @@ PokemonStats generate(uint64_t seed, size_t rolls, int max_ivs){
     PokemonStats stats;
 
     stats.ec = rng.get_int32();
+    if (stats.ec == 0xffffffff){
+        rng.next();
+        stats.ec = rng.get_int32();
+    }
     rng.next();
-
     rng.next();
 
     stats.pid = 0;
@@ -119,7 +122,7 @@ bool matches(const PokemonStats& filter, const PokemonStats& stats){
     if (filter.ec != stats.ec){
         return false;
     }
-    if (filter.pid != stats.pid){
+    if ((filter.pid ^ stats.pid) & 0xefffffff){
         return false;
     }
     for (int c = 0; c < 6; c++){
