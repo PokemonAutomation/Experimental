@@ -9,8 +9,12 @@
 
 #include <stdint.h>
 #include <string>
+#include <mutex>
 
 namespace PokemonAutomation{
+
+
+extern std::mutex print_lock;
 
 
 std::string tostr_hex_padded(uint64_t x, size_t length);

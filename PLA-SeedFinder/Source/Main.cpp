@@ -50,12 +50,14 @@ void test(){
 }
 #endif
 
-
+#include <immintrin.h>
 
 
 int main(){
 
 //    test();
+
+//    print(0x94e006c3dd6295a7, 19, 0);
 
 
     std::cout << "PLA Seed Finder" << std::endl;

@@ -4,6 +4,8 @@
  *
  */
 
+#include <iostream>
+#include "Tools.h"
 #include "DynamicParallelizer.h"
 
 namespace PokemonAutomation{
@@ -17,9 +19,10 @@ DynamicParallelizer::DynamicParallelizer(
     : m_function(std::move(function))
     , m_thread_count(threads == 0 ? std::thread::hardware_concurrency() : threads)
     , m_total(total)
-    , m_threads(m_thread_count)
     , m_next(0)
     , m_completed(0)
+    , m_last_status_update(std::chrono::system_clock::time_point::min())
+    , m_threads(m_thread_count)
 {
     uint64_t blocks = m_thread_count * 4;
     m_block_size = (total + blocks - 1) / blocks;
@@ -47,10 +50,20 @@ void DynamicParallelizer::thread_loop(){
         if (m_completed == m_total){
             return;
         }
+        auto now = std::chrono::system_clock::now();
+        if (m_last_status_update + std::chrono::milliseconds(500) < now){
+            print_status();
+            m_last_status_update = now;
+        }
         start = m_next;
         block = std::min(m_block_size, m_total - start);
         m_next = start + block;
     }
+}
+void DynamicParallelizer::print_status(){
+    std::string erase = "                                        \r";
+    std::lock_guard<std::mutex> lg(print_lock);
+    std::cout << erase << "Searching... " << (double)m_completed / m_total * 100 << " %\r";
 }
 
 

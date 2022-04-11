@@ -15,6 +15,10 @@ using std::endl;
 namespace PokemonAutomation{
 
 
+std::mutex print_lock;
+
+
+
 std::string tostr_hex_padded(uint64_t x, size_t length){
     std::stringstream ss;
     ss << std::hex << x << std::dec;
@@ -87,22 +91,23 @@ PokemonStats generate(uint64_t seed, size_t rolls, int max_ivs){
 
     PokemonStats stats;
 
-    stats.ec = rng.get_int32();
-    if (stats.ec == 0xffffffff){
-        rng.next();
-        stats.ec = rng.get_int32();
-    }
-    rng.next();
-    rng.next();
+    stats.ec = rng.get_int32_next(0xffffffff, 0xffffffff);
+
+    //  Fake TID
+    rng.get_int32_next(0xffffffff, 0xffffffff);
 
     stats.pid = 0;
     for (size_t c = 0; c < rolls; c++){
+#if 1
+        stats.pid = rng.get_int32_next(0xffffffff, 0xffffffff);
+#else
         stats.pid = rng.get_int32();
         rng.next();
+#endif
     }
 
     for (int c = 0; c < max_ivs;){
-        uint32_t index = rng.next32(6, 7);
+        uint32_t index = rng.get_int32_next(6, 7);
         if (stats.ivs[index] == -1){
             stats.ivs[index] = 31;
             c++;
@@ -137,6 +142,7 @@ bool matches(const PokemonStats& filter, const PokemonStats& stats){
 void print(uint64_t seed, size_t rolls, int max_ivs){
     PokemonStats stats = generate(seed, rolls, max_ivs);
 
+    std::lock_guard<std::mutex> lg(print_lock);
     std::cout << tostr_hex_padded(seed, 16) << " (rolls = " << rolls << "): ";
     std::cout << "EC = " << tostr_hex_padded(stats.ec, 8);
     std::cout << ", PID = " << tostr_hex_padded(stats.pid, 8);

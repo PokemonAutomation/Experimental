@@ -33,8 +33,7 @@ public:
         s0 = _mm512_rol_epi64(s0, 24);
         state[1] = _mm512_rol_epi64(s1, 37);
 
-        s1 = _mm512_xor_si512(s1, _mm512_slli_epi64(s1, 16));
-        state[0] = _mm512_xor_si512(s0, s1);
+        state[0] = _mm512_ternarylogic_epi64(s0, s1, _mm512_slli_epi64(s1, 16), 0x96);
     }
 
 private:

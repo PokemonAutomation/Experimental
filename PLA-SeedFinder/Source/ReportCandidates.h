@@ -15,18 +15,27 @@
 namespace PokemonAutomation{
 
 
-    
+
 class SeedReporter{
 public:
     virtual void report(uint64_t seed, size_t rolls) = 0;
 };
 
 
-void report_ec_pid_matches(
+//  Search for candidates assuming no -1 rolls for TID and PID.
+void search_candidates_normalPID(
     SeedReporter& reporter,
     size_t rolls, uint32_t desired_pid,
     uint64_t start_seed, uint64_t iterations
 );
+
+//  Search for candidates including -1 rolls for TID and PID. This is slower.
+void search_candidates_maxPID(
+    SeedReporter& reporter,
+    size_t rolls, uint32_t desired_pid,
+    uint64_t start_seed, uint64_t iterations
+);
+
 
 
 struct Result{

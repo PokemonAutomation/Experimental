@@ -9,6 +9,7 @@
 
 #include <stdint.h>
 #include <functional>
+#include <chrono>
 #include <vector>
 #include <mutex>
 #include <thread>
@@ -28,6 +29,7 @@ public:
 
 private:
     void thread_loop();
+    void print_status();
 
 private:
     std::function<void(uint64_t start, uint64_t length)> m_function;
@@ -35,12 +37,14 @@ private:
     uint64_t m_total;
     uint64_t m_block_size;
 
+    uint64_t m_next;
+    uint64_t m_completed;
+
+    std::chrono::system_clock::time_point m_last_status_update;
+
     std::mutex m_lock;
 //    std::condition_variable m_cv;
     std::vector<std::thread> m_threads;
-
-    uint64_t m_next;
-    uint64_t m_completed;
 };
 
 

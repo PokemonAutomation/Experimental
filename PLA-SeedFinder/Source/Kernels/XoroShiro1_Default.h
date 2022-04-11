@@ -10,6 +10,10 @@
 #include <stdint.h>
 #include "Compiler.h"
 
+#include <iostream>
+using std::cout;
+using std::endl;
+
 namespace PokemonAutomation{
 
 class XoroShiroX1{
@@ -37,12 +41,26 @@ public:
         state[0] = s0 ^ s1;
     }
 
-    uint32_t next32(uint32_t mod, uint32_t mask){
+    uint32_t next_get_int32(uint32_t mod, uint32_t mask){
+        uint32_t ret;
+        do{
+            next();
+            ret = get_int32() & mask;
+        }while (ret >= mod);
+        return ret;
+    }
+    uint32_t get_int32_next(uint32_t mod, uint32_t mask){
+//        int rolls = 0;
+
         uint32_t ret;
         do{
             ret = get_int32() & mask;
             next();
+//            rolls++;
         }while (ret >= mod);
+//        if (rolls > 1 && mask == 0xffffffff){
+//            cout << "rolls = " << rolls << endl;
+//        }
         return ret;
     }
 
