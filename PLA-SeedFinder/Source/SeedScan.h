@@ -16,11 +16,11 @@ namespace PokemonAutomation{
 
 void print_isa();
 
-bool seed_scan_normalPID(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
-bool seed_scan_maxPID(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
+bool seed_scan_common(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
+bool seed_scan_thorough(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
 
-std::vector<Result> run_search_normalPID(const PokemonStats& stats, size_t rolls, size_t threads);
-std::vector<Result> run_search_maxPID(const PokemonStats& stats, size_t rolls, size_t threads);
+std::vector<Result> run_search_common(const PokemonStats& stats, size_t rolls, size_t threads);
+std::vector<Result> run_search_thorough(const PokemonStats& stats, size_t rolls, size_t threads);
 
 
 }

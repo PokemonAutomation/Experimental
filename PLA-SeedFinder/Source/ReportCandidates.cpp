@@ -12,14 +12,14 @@
 namespace PokemonAutomation{
 
 
-void search_candidates_thorough(
+void search_candidates_thorough_end(
     SeedReporter& reporter,
     size_t rolls, uint32_t desired_pid,
     uint64_t start_seed, uint64_t iterations
 ){
     desired_pid &= 0xefffffff;
     for (uint64_t s = 0; s < iterations; s++){
-        XoroShiroX1 rng0(start_seed);
+        XoroShiroX1_Default rng0(start_seed);
         rng0.next();
 
         uint32_t pid0;
@@ -41,7 +41,7 @@ void search_candidates_thorough(
 
 
 
-void search_candidates_normalPID(
+void search_candidates_common(
     SeedReporter& reporter,
     size_t rolls, uint32_t desired_pid,
     uint64_t start_seed, uint64_t iterations
@@ -53,27 +53,27 @@ void search_candidates_normalPID(
 
     while (iterations > 0){
         uint64_t block = std::min(iterations, (uint64_t)65536);
-        if (seed_scan_normalPID(rolls, desired_pid, start_seed, block)){
+        if (seed_scan_common(rolls, desired_pid, start_seed, block)){
             search_candidates_thorough(reporter, rolls, desired_pid, start_seed, block);
         }
         iterations -= block;
         start_seed += block << 32;
     }
 }
-void search_candidates_maxPID(
+void search_candidates_thorough(
     SeedReporter& reporter,
     size_t rolls, uint32_t desired_pid,
     uint64_t start_seed, uint64_t iterations
 ){
     if (iterations <= 65536){
-        search_candidates_thorough(reporter, rolls, desired_pid, start_seed, iterations);
+        search_candidates_thorough_end(reporter, rolls, desired_pid, start_seed, iterations);
         return;
     }
 
     while (iterations > 0){
         uint64_t block = std::min(iterations, (uint64_t)65536);
-        if (seed_scan_maxPID(rolls, desired_pid, start_seed, block)){
-            search_candidates_thorough(reporter, rolls, desired_pid, start_seed, block);
+        if (seed_scan_thorough(rolls, desired_pid, start_seed, block)){
+            search_candidates_thorough_end(reporter, rolls, desired_pid, start_seed, block);
         }
         iterations -= block;
         start_seed += block << 32;

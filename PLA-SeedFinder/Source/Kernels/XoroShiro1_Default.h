@@ -16,9 +16,9 @@ using std::endl;
 
 namespace PokemonAutomation{
 
-class XoroShiroX1{
+class XoroShiroX1_Default{
 public:
-    PA_FORCE_INLINE XoroShiroX1(uint64_t seed){
+    PA_FORCE_INLINE XoroShiroX1_Default(uint64_t seed){
         state[0] = seed;
         state[1] = 0x82A2B175229D6A5B;
     }

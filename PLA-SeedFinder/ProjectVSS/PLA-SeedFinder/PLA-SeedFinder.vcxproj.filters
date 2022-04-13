@@ -42,13 +42,13 @@
     <ClCompile Include="..\..\Source\Kernels\SeedScan_Default.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_AVX2.cpp">
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x86_AVX2.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_AVX512.cpp">
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x86_AVX512.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_SSE41.cpp">
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x86_SSE41.cpp">
       <Filter>Source Files\Kernels</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,13 +71,13 @@
     <ClInclude Include="..\..\Source\DynamicParallelizer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Kernels\XoroShiro2_SSE2.h">
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro2_x86_SSE2.h">
       <Filter>Source Files\Kernels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Kernels\XoroShiro4_AVX2.h">
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro4_x86_AVX2.h">
       <Filter>Source Files\Kernels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Kernels\XoroShiro8_AVX512.h">
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro8_x86_AVX512.h">
       <Filter>Source Files\Kernels</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Kernels\XoroShiro1_Default.h">

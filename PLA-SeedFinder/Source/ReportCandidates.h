@@ -23,14 +23,14 @@ public:
 
 
 //  Search for candidates assuming no -1 rolls for TID and PID.
-void search_candidates_normalPID(
+void search_candidates_common(
     SeedReporter& reporter,
     size_t rolls, uint32_t desired_pid,
     uint64_t start_seed, uint64_t iterations
 );
 
 //  Search for candidates including -1 rolls for TID and PID. This is slower.
-void search_candidates_maxPID(
+void search_candidates_thorough(
     SeedReporter& reporter,
     size_t rolls, uint32_t desired_pid,
     uint64_t start_seed, uint64_t iterations

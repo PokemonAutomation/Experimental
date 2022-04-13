@@ -30,9 +30,9 @@
     <ClCompile Include="..\..\Source\CpuFeatures.cpp" />
     <ClCompile Include="..\..\Source\DynamicParallelizer.cpp" />
     <ClCompile Include="..\..\Source\Kernels\SeedScan_Default.cpp" />
-    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_AVX2.cpp" />
-    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_AVX512.cpp" />
-    <ClCompile Include="..\..\Source\Kernels\SeedScan_x64_SSE41.cpp" />
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x86_AVX2.cpp" />
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x86_AVX512.cpp" />
+    <ClCompile Include="..\..\Source\Kernels\SeedScan_x86_SSE41.cpp" />
     <ClCompile Include="..\..\Source\Main.cpp" />
     <ClCompile Include="..\..\Source\PLA-SeedFinder.cpp" />
     <ClCompile Include="..\..\Source\ReportCandidates.cpp" />
@@ -44,9 +44,9 @@
     <ClInclude Include="..\..\Source\CpuFeatures.h" />
     <ClInclude Include="..\..\Source\DynamicParallelizer.h" />
     <ClInclude Include="..\..\Source\Kernels\XoroShiro1_Default.h" />
-    <ClInclude Include="..\..\Source\Kernels\XoroShiro2_SSE2.h" />
-    <ClInclude Include="..\..\Source\Kernels\XoroShiro4_AVX2.h" />
-    <ClInclude Include="..\..\Source\Kernels\XoroShiro8_AVX512.h" />
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro2_x86_SSE2.h" />
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro4_x86_AVX2.h" />
+    <ClInclude Include="..\..\Source\Kernels\XoroShiro8_x86_AVX512.h" />
     <ClInclude Include="..\..\Source\PLA-SeedFinder.h" />
     <ClInclude Include="..\..\Source\ReportCandidates.h" />
     <ClInclude Include="..\..\Source\SeedScan.h" />

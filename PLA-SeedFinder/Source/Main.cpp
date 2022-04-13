@@ -22,7 +22,7 @@ using namespace PokemonAutomation;
 #if 0
 void seed_scan_Default_test(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
     for (uint64_t s = 0; s < iterations; s++){
-        XoroShiroX1 rng0(start_seed);
+        XoroShiroX1_Default rng0(start_seed);
         if (rng0.get_int32() == 0xffffffff){
             rng0.next();
         }

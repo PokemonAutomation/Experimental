@@ -44,7 +44,7 @@ int32_t pa_PLA_find_seeds_threads(
     stats.ivs[5] = ivs[5];
 
     std::cout << std::endl;
-    std::cout << "PLA Seed Finder v1.2" << std::endl;
+    std::cout << "PLA Seed Finder v1.3" << std::endl;
     std::cout << std::endl;
 
     std::cout << "PID: " << tostr_hex_padded(stats.pid, 8) << std::endl;
@@ -68,17 +68,17 @@ int32_t pa_PLA_find_seeds_threads(
         std::cout << "Searching..." << std::endl;
         std::cout << std::endl;
         std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
-        results = run_search_normalPID(stats, max_rolls, threads);
+        results = run_search_common(stats, max_rolls, threads);
         std::chrono::system_clock::time_point end = std::chrono::system_clock::now();
 //        std::cout << std::endl;
         std::cout << "Time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000000. << " seconds        " << std::endl;
         std::cout << std::endl;
     }
     if (results.empty()){
-        std::cout << "No seeds found. Retrying with -1 rerolls..." << std::endl;
+        std::cout << "No seeds found. Retrying with corner case handling..." << std::endl;
         std::cout << std::endl;
         std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
-        results = run_search_maxPID(stats, max_rolls, threads);
+        results = run_search_thorough(stats, max_rolls, threads);
         std::chrono::system_clock::time_point end = std::chrono::system_clock::now();
 //        std::cout << std::endl;
         std::cout << "Time: " << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000000. << " seconds        " << std::endl;

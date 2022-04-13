@@ -87,7 +87,7 @@ int parse_int(const char*& stream){
 
 
 PokemonStats generate(uint64_t seed, size_t rolls, int max_ivs){
-    XoroShiroX1 rng(seed);
+    XoroShiroX1_Default rng(seed);
 
     PokemonStats stats;
 
