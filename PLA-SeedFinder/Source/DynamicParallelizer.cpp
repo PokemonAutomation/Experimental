@@ -8,6 +8,11 @@
 #include "Tools.h"
 #include "DynamicParallelizer.h"
 
+#if _WIN32
+#define NOMINMAX
+#include <Windows.h>
+#endif
+
 namespace PokemonAutomation{
 
 
@@ -37,6 +42,10 @@ DynamicParallelizer::~DynamicParallelizer(){
     }
 }
 void DynamicParallelizer::thread_loop(){
+#if _WIN32
+    SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_IDLE);
+#endif
+
     uint64_t start = 0;
     uint64_t block = 0;
     while (true){
