@@ -33,6 +33,8 @@ bool seed_scan_thorough_unroll16_AVX512(size_t rolls, uint32_t desired_pid, uint
 
 
 void print_isa(){
+#ifdef __aarch64__
+#else
 #if !_MSC_VER || _WIN64
     if (CPU_CAPABILITY.OS_AVX512 && CPU_CAPABILITY.HW_AVX512_DQ){
         cout << "Instruction Set: AVX512" << endl;
@@ -47,6 +49,7 @@ void print_isa(){
         cout << "Instruction Set: SSE4.1" << endl;
         return;
     }
+#endif
     cout << "Instruction Set: Default" << endl;
 }
 
