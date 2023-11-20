@@ -56,8 +56,6 @@ int32_t pa_PLA_find_seeds_threads(
                          << stats.ivs[4] << " "
                          << stats.ivs[5] << std::endl;
 
-    EcPidMatchReporter reporter(stats);
-
     std::cout << std::endl;
     print_isa();
     std::cout << "Threads: " << threads << std::endl;
