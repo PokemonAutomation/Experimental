@@ -64,20 +64,13 @@ if (X86)
     )
 else ()
     file(GLOB MAIN_SOURCES
-        Source/Compiler.h
         Source/DynamicParallelizer.cpp
-        Source/DynamicParallelizer.h
         Source/Kernels/SeedScan_Default.cpp
-        Source/Kernels/XoroShiro1_Default.h
         Source/Main.cpp
         Source/PLA-SeedFinder.cpp
-        Source/PLA-SeedFinder.h
         Source/ReportCandidates.cpp
-        Source/ReportCandidates.h
         Source/SeedScan.cpp
-        Source/SeedScan.h
         Source/Tools.cpp
-        Source/Tools.h
     )
 endif (X86)
 
@@ -127,6 +120,10 @@ else()
         target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
     else ()
         target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic -DPA_STATIC)
+        SET_SOURCE_FILES_PROPERTIES(
+            Source/Kernels/SeedScan_Default.cpp
+            PROPERTIES COMPILE_FLAGS -O2
+        )
     endif (X86)
 endif()
 

@@ -18,11 +18,7 @@ namespace PokemonAutomation{
 
 class XoroShiroX1_Default{
 public:
-    PA_FORCE_INLINE XoroShiroX1_Default(uint64_t seed){
-        state[0] = seed;
-        state[1] = 0x82A2B175229D6A5B;
-    }
-
+    PA_FORCE_INLINE XoroShiroX1_Default(uint64_t seed) : state {seed, 0x82A2B175229D6A5B} {}
     PA_FORCE_INLINE uint64_t get_int64(){
         return state[0] + state[1];
     }
