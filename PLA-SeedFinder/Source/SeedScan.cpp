@@ -38,8 +38,10 @@ bool seed_scan_thorough_unroll8(size_t rolls, uint32_t desired_pid, uint64_t sta
 
 void print_isa(){
 #ifdef __aarch64__
-    cout << "Instruction Set: M1" << endl;
+    #if defined __APPLE__
+    cout << "Instruction Set: AARCH64" << endl;
     return;
+    #endif
 #else
 #if !_MSC_VER || _WIN64
     if (CPU_CAPABILITY.OS_AVX512 && CPU_CAPABILITY.HW_AVX512_DQ){
