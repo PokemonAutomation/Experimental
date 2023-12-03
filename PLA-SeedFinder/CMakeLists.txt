@@ -108,7 +108,7 @@ else()
     if (X86)
         target_compile_options(PLA-SeedFinder PRIVATE -msse4.2)
 
-        target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic -DPA_STATIC)
+        target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic)
 
         set(ARCH_FLAGS_09_Nehalem       -march=nehalem)
         set(ARCH_FLAGS_13_Haswell       -march=haswell)
@@ -119,7 +119,7 @@ else()
         target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_13_Haswell)
         target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
     else ()
-        target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic -DPA_STATIC)
+        target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic)
         SET_SOURCE_FILES_PROPERTIES(
             Source/Kernels/SeedScan_Default.cpp
             PROPERTIES COMPILE_FLAGS -O2

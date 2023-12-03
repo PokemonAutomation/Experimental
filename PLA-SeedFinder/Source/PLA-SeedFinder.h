@@ -6,12 +6,16 @@
 
 #include <stdint.h>
 
+#if defined(_WIN32)
 #if defined _WINDLL
 #define PA_EXPORT __declspec(dllexport)
 #elif defined PA_STATIC
 #define PA_EXPORT
 #else
 #define PA_EXPORT __declspec(dllimport)
+#endif
+#else
+#define PA_EXPORT
 #endif
 
 #ifdef __cplusplus
