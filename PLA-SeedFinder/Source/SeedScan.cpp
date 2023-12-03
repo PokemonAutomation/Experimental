@@ -30,10 +30,16 @@ bool seed_scan_thorough_unroll4_SSE41(size_t rolls, uint32_t desired_pid, uint64
 bool seed_scan_thorough_unroll8_AVX2(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
 bool seed_scan_thorough_unroll16_AVX512(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
 
+bool seed_scan_common_unroll4(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
+bool seed_scan_thorough_unroll4(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
+bool seed_scan_common_unroll8(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
+bool seed_scan_thorough_unroll8(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations);
 
 
 void print_isa(){
 #ifdef __aarch64__
+    cout << "Instruction Set: M1" << endl;
+    return;
 #else
 #if !_MSC_VER || _WIN64
     if (CPU_CAPABILITY.OS_AVX512 && CPU_CAPABILITY.HW_AVX512_DQ){
@@ -89,7 +95,14 @@ bool seed_scan_common(size_t rolls, uint32_t desired_pid, uint64_t start_seed, u
         iterations -= block;
     }
 #endif
-
+#if defined __aarch64__ && defined __APPLE__
+    uint64_t block = iterations / 8 * 8;
+    if (block > 0 && seed_scan_common_unroll8(rolls, desired_pid, start_seed, block)){
+        return true;
+    }
+    start_seed += block * 0x100000000;
+    iterations -= block;
+#endif
     if (iterations > 0){
         return seed_scan_common_Default(rolls, desired_pid, start_seed, iterations);
     }
@@ -128,6 +141,14 @@ bool seed_scan_thorough(size_t rolls, uint32_t desired_pid, uint64_t start_seed,
         start_seed += block * 0x100000000;
         iterations -= block;
     }
+#endif
+#if defined __aarch64__ && defined __APPLE__
+    uint64_t block = iterations / 8 * 8;
+    if (block > 0 && seed_scan_thorough_unroll8(rolls, desired_pid, start_seed, block)){
+        return true;
+    }
+    start_seed += block * 0x100000000;
+    iterations -= block;
 #endif
 
     if (iterations > 0){

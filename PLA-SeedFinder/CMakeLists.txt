@@ -66,6 +66,7 @@ else ()
     file(GLOB MAIN_SOURCES
         Source/DynamicParallelizer.cpp
         Source/Kernels/SeedScan_Default.cpp
+        Source/Kernels/SeedScan_aarch64.cpp
         Source/Main.cpp
         Source/PLA-SeedFinder.cpp
         Source/ReportCandidates.cpp
@@ -122,6 +123,10 @@ else()
         target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic)
         SET_SOURCE_FILES_PROPERTIES(
             Source/Kernels/SeedScan_Default.cpp
+            PROPERTIES COMPILE_FLAGS -O2
+        )
+        SET_SOURCE_FILES_PROPERTIES(
+            Source/Kernels/SeedScan_aarch64.cpp
             PROPERTIES COMPILE_FLAGS -O2
         )
     endif (X86)
