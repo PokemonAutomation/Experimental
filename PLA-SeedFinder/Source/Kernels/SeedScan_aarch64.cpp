@@ -6,7 +6,7 @@ namespace PokemonAutomation{
 
 #if defined __aarch64__ && defined __APPLE__
 
-bool seed_scan_common_unroll4(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
+bool seed_scan_common_unroll4_NEON(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
     simd_ulong4 t = simd_make_ulong4((uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid);
     simd_ulong4 seed = simd_make_ulong4(start_seed, start_seed+0x200000000, start_seed+0x300000000, start_seed+0x400000000);
     simd_ulong4 delta = simd_make_ulong4(0x500000000, 0x500000000, 0x500000000, 0x500000000);
@@ -29,7 +29,7 @@ bool seed_scan_common_unroll4(size_t rolls, uint32_t desired_pid, uint64_t start
     return false;
 }
 
-bool seed_scan_thorough_unroll4(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
+bool seed_scan_thorough_unroll4_NEON(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
     desired_pid &= 0xefffffff;
     simd_ulong4 t = simd_make_ulong4((uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid);
     simd_ulong4 seed = simd_make_ulong4(start_seed, start_seed+0x200000000, start_seed+0x300000000, start_seed+0x400000000);
@@ -57,7 +57,7 @@ bool seed_scan_thorough_unroll4(size_t rolls, uint32_t desired_pid, uint64_t sta
     return false;
 }
 
-bool seed_scan_common_unroll8(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
+bool seed_scan_common_unroll8_NEON(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
     simd_ulong8 t = simd_make_ulong8(simd_make_ulong4((uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid),
                                      simd_make_ulong4((uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid));
     simd_ulong8 seed = simd_make_ulong8(simd_make_ulong4(start_seed, start_seed+0x200000000, start_seed+0x300000000, start_seed+0x400000000),
@@ -83,7 +83,7 @@ bool seed_scan_common_unroll8(size_t rolls, uint32_t desired_pid, uint64_t start
     return false;
 }
 
-bool seed_scan_thorough_unroll8(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
+bool seed_scan_thorough_unroll8_NEON(size_t rolls, uint32_t desired_pid, uint64_t start_seed, uint64_t iterations){
     desired_pid &= 0xefffffff;
     simd_ulong8 t = simd_make_ulong8(simd_make_ulong4((uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid),
                                      simd_make_ulong4((uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid, (uint64_t)desired_pid));

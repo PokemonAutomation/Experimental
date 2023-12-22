@@ -16,13 +16,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-# set(CMAKE_AUTOMOC ON)
-# set(CMAKE_AUTORCC ON)
-# set(CMAKE_AUTOUIC ON)
-
-add_custom_target(build-time-make-directory ALL
-    COMMAND ${CMAKE_COMMAND} -E make_directory Assembly/)
-
 #Find threads library
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -92,6 +85,9 @@ target_include_directories(PLA-SeedFinder PRIVATE Source/)
 
 #enable MP with MSVC (Build with Multiple Processes)
 if (MSVC)
+    add_custom_target(build-time-make-directory ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory Assembly/)
+
     target_compile_options(PLA-SeedFinder PRIVATE /FAs /FaAssembly/ /MP /W4)
     target_compile_options(PLA-SeedFinder PRIVATE /wd5054)  # Deprecated enum arithemtic
     target_compile_options(PLA-SeedFinder PRIVATE /wd4505)  # unreferenced local function has been removed
@@ -106,10 +102,9 @@ if (MSVC)
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
     
 else()
+    target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic -O2)
     if (X86)
         target_compile_options(PLA-SeedFinder PRIVATE -msse4.2)
-
-        target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic)
 
         set(ARCH_FLAGS_09_Nehalem       -march=nehalem)
         set(ARCH_FLAGS_13_Haswell       -march=haswell)
@@ -119,16 +114,6 @@ else()
         target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_08_Nehalem)
         target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_13_Haswell)
         target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
-    else ()
-        target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic)
-        SET_SOURCE_FILES_PROPERTIES(
-            Source/Kernels/SeedScan_Default.cpp
-            PROPERTIES COMPILE_FLAGS -O2
-        )
-        SET_SOURCE_FILES_PROPERTIES(
-            Source/Kernels/SeedScan_aarch64.cpp
-            PROPERTIES COMPILE_FLAGS -O2
-        )
     endif (X86)
 endif()
 
