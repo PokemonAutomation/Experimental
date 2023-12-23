@@ -16,31 +16,31 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
-
-add_custom_target(build-time-make-directory ALL
-    COMMAND ${CMAKE_COMMAND} -E make_directory Assembly/)
-
 #Find threads library
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
+#detect cpu arch
+if (CMAKE_SYSTEM_PROCESSOR MATCHES "(x86)|(X86)|(amd64)|(AMD64)")
+    set (X86 TRUE)
+else ()
+    set (X86 FALSE)
+endif ()
 
 #add current directory to find tesseractPA.lib
 #link_directories(${CMAKE_CURRENT_LIST_DIR})
 
-file(GLOB MAIN_SOURCES
+if (X86)
+    file(GLOB MAIN_SOURCES
     Source/Compiler.h
-    Source/CpuId.cpp
+    Source/CpuFeatures.cpp
     Source/CpuFeatures.h
     Source/DynamicParallelizer.cpp
     Source/DynamicParallelizer.h
     Source/Kernels/SeedScan_Default.cpp
-    Source/Kernels/SeedScan_x64_AVX2.cpp
-    Source/Kernels/SeedScan_x64_AVX512.cpp
-    Source/Kernels/SeedScan_x64_SSE41.cpp
+    Source/Kernels/SeedScan_x86_AVX2.cpp
+    Source/Kernels/SeedScan_x86_AVX512.cpp
+    Source/Kernels/SeedScan_x86_SSE41.cpp
     Source/Kernels/XoroShiro1_Default.h
     Source/Kernels/XoroShiro2_SSE2.h
     Source/Kernels/XoroShiro4_AVX2.h
@@ -54,8 +54,25 @@ file(GLOB MAIN_SOURCES
     Source/SeedScan.h
     Source/Tools.cpp
     Source/Tools.h
-)
-add_executable(PLA-SeedFinder WIN32 ${MAIN_SOURCES})
+    )
+else ()
+    file(GLOB MAIN_SOURCES
+        Source/DynamicParallelizer.cpp
+        Source/Kernels/SeedScan_Default.cpp
+        Source/Kernels/SeedScan_aarch64.cpp
+        Source/Main.cpp
+        Source/PLA-SeedFinder.cpp
+        Source/ReportCandidates.cpp
+        Source/SeedScan.cpp
+        Source/Tools.cpp
+    )
+endif (X86)
+
+if (WIN32)
+    add_executable(PLA-SeedFinder WIN32 ${MAIN_SOURCES})
+else ()
+    add_executable(PLA-SeedFinder ${MAIN_SOURCES})
+endif ()
 set_target_properties(PLA-SeedFinder PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries(PLA-SeedFinder)
 target_link_libraries(PLA-SeedFinder Threads::Threads)
@@ -68,6 +85,9 @@ target_include_directories(PLA-SeedFinder PRIVATE Source/)
 
 #enable MP with MSVC (Build with Multiple Processes)
 if (MSVC)
+    add_custom_target(build-time-make-directory ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory Assembly/)
+
     target_compile_options(PLA-SeedFinder PRIVATE /FAs /FaAssembly/ /MP /W4)
     target_compile_options(PLA-SeedFinder PRIVATE /wd5054)  # Deprecated enum arithemtic
     target_compile_options(PLA-SeedFinder PRIVATE /wd4505)  # unreferenced local function has been removed
@@ -82,50 +102,49 @@ if (MSVC)
     target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
     
 else()
-    target_compile_options(PLA-SeedFinder PRIVATE -msse4.2)
+    target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic -O2)
+    if (X86)
+        target_compile_options(PLA-SeedFinder PRIVATE -msse4.2)
 
-    target_compile_options(PLA-SeedFinder PRIVATE -Wall -Wpedantic -DPA_STATIC)
+        set(ARCH_FLAGS_09_Nehalem       -march=nehalem)
+        set(ARCH_FLAGS_13_Haswell       -march=haswell)
+        set(ARCH_FLAGS_17_Skylake       -march=skylake-avx512)
 
-    set(ARCH_FLAGS_09_Nehalem       -march=nehalem)
-    set(ARCH_FLAGS_13_Haswell       -march=haswell)
-    set(ARCH_FLAGS_17_Skylake       -march=skylake-avx512)
-
-    #   Run-time ISA dispatching
-    target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_08_Nehalem)
-    target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_13_Haswell)
-    target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
+        #   Run-time ISA dispatching
+        target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_08_Nehalem)
+        target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_13_Haswell)
+        target_compile_definitions(PLA-SeedFinder PRIVATE PA_AutoDispatch_17_Skylake)
+    endif (X86)
 endif()
 
 
+if(X86)
+    #   Run-time CPU dispatching.
+    if (ARCH_FLAGS_09_Nehalem)
+    SET_SOURCE_FILES_PROPERTIES(
+        Source/Kernels/SeedScan_x86_SSE41.cpp
+        PROPERTIES COMPILE_FLAGS ${ARCH_FLAGS_09_Nehalem}
+    )
+    endif()
+    if (ARCH_FLAGS_13_Haswell)
+    SET_SOURCE_FILES_PROPERTIES(
+        Source/Kernels/SeedScan_x86_AVX2.cpp
+        PROPERTIES COMPILE_FLAGS ${ARCH_FLAGS_13_Haswell}
+    )
+    endif()
+    if (ARCH_FLAGS_17_Skylake)
+    SET_SOURCE_FILES_PROPERTIES(
+        Source/Kernels/SeedScan_x86_AVX512.cpp
+        PROPERTIES COMPILE_FLAGS ${ARCH_FLAGS_17_Skylake}
+    )
+    endif()
+endif(X86)
 
-#   Run-time CPU dispatching.
-if (ARCH_FLAGS_09_Nehalem)
-SET_SOURCE_FILES_PROPERTIES(
-    Source/Kernels/SeedScan_x64_SSE41.cpp
-    PROPERTIES COMPILE_FLAGS ${ARCH_FLAGS_09_Nehalem}
-)
-endif()
-if (ARCH_FLAGS_13_Haswell)
-SET_SOURCE_FILES_PROPERTIES(
-    Source/Kernels/SeedScan_x64_AVX2.cpp
-    PROPERTIES COMPILE_FLAGS ${ARCH_FLAGS_13_Haswell}
-)
-endif()
-if (ARCH_FLAGS_17_Skylake)
-SET_SOURCE_FILES_PROPERTIES(
-    Source/Kernels/SeedScan_x64_AVX512.cpp
-    PROPERTIES COMPILE_FLAGS ${ARCH_FLAGS_17_Skylake}
-)
-endif()
-
-
-
-
-
-
-#copy needed dlls
-#file(COPY *.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-file(GLOB MY_DLLS
-  "*.dll"
-)
-file(COPY ${MY_DLLS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+if (WIN32)
+    #copy needed dlls
+    #file(COPY *.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(GLOB MY_DLLS
+    "*.dll"
+    )
+    file(COPY ${MY_DLLS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+endif(WIN32)

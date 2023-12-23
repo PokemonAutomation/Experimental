@@ -50,7 +50,6 @@ void test(){
 }
 #endif
 
-#include <immintrin.h>
 
 
 int main(){
